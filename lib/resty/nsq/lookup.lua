@@ -22,10 +22,9 @@ function _M.lookup(url, topic)
     local body = cjson.decode(res.body)
     local addresses = {}
     for _, producer in ipairs(body.producers) do
-        local address = ngx.re.sub(producer.remote_address, ":[0-9]+", "")
         table.insert(addresses, {
-            host = address,
-            ip = address,
+            host = producer.broadcast_address,
+            ip = producer.broadcast_address,
             port = producer.tcp_port,
         })
     end
